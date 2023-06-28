@@ -11,6 +11,9 @@ export default function MinimizeListMovies() {
   const [updateMenuStatus, setUpdateMenuStatus] = useState("hidden");
   const [showingItemID, setShowingItemID] = useState(null);
 
+  const [placeholderName, setPlaceholderName] = useState("");
+  const [placeholderDirector, setPlaceholderDirector] = useState("");
+  const [placeholderImage, setPlaceholderImage] = useState("");
   useEffect(() => {
     try {
       axios
@@ -22,7 +25,7 @@ export default function MinimizeListMovies() {
     } catch (error) {
       console.log(error);
     }
-  });
+  }, []);
 
   const deleteMovie = (_id) => {
     const data = {
@@ -47,6 +50,18 @@ export default function MinimizeListMovies() {
       ? setUpdateMenuStatus("visible")
       : setUpdateMenuStatus("hidden");
 
+    axios
+      .post("http://localhost:3000/findonebyid", {
+        _id: _id,
+      })
+      .then((res) => {
+        console.log(res.data[0].name);
+        setPlaceholderName(res.data[0].name);
+        setPlaceholderDirector(res.data[0].director);
+        setPlaceholderImage(res.data[0].image);
+        console.log(placeholderName, placeholderDirector, placeholderImage);
+      });
+
     setShowingItemID(_id);
   };
 
@@ -56,6 +71,9 @@ export default function MinimizeListMovies() {
         <UpdateMenu
           setUpdateMenuStatus={setUpdateMenuStatus}
           showingItemID={showingItemID}
+          placeholderName={placeholderName}
+          placeholderDirector={placeholderDirector}
+          placeholderImage={placeholderImage}
         />
       </div>
 

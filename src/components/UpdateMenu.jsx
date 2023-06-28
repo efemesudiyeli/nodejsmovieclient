@@ -1,12 +1,24 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function UpdateMenu({ setUpdateMenuStatus, showingItemID }) {
-  const [movieName, setMovieName] = useState(null);
-  const [directorName, setDirectorName] = useState(null);
-  const [imageLink, setImageLink] = useState(null);
+export default function UpdateMenu({
+  setUpdateMenuStatus,
+  showingItemID,
+  placeholderName,
+  placeholderDirector,
+  placeholderImage,
+}) {
+  const [movieName, setMovieName] = useState();
+  const [directorName, setDirectorName] = useState();
+  const [imageLink, setImageLink] = useState();
+
+  useEffect(() => {
+    setMovieName(placeholderName);
+    setDirectorName(placeholderDirector);
+    setImageLink(placeholderImage);
+  }, [placeholderName, placeholderDirector, placeholderImage]);
 
   const updateMovie = (_id) => {
     try {
@@ -16,6 +28,7 @@ export default function UpdateMenu({ setUpdateMenuStatus, showingItemID }) {
         director: directorName,
         image: imageLink,
       };
+
       axios
         .post(
           "https://nodejsmovieserver-production.up.railway.app/updatemovie",
@@ -45,6 +58,7 @@ export default function UpdateMenu({ setUpdateMenuStatus, showingItemID }) {
             type="text"
             id="_moviename"
             placeholder="Avatar"
+            defaultValue={placeholderName}
             name="name"
             onChange={(e) => {
               setMovieName(e.target.value);
@@ -61,6 +75,7 @@ export default function UpdateMenu({ setUpdateMenuStatus, showingItemID }) {
             type="text"
             id="_moviedirector"
             placeholder="James Cameron"
+            defaultValue={placeholderDirector}
             name="director"
             onChange={(e) => {
               setDirectorName(e.target.value);
@@ -77,6 +92,7 @@ export default function UpdateMenu({ setUpdateMenuStatus, showingItemID }) {
             type="text"
             id="_movieimg"
             placeholder="https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg"
+            defaultValue={placeholderImage}
             name="image"
             onChange={(e) => {
               setImageLink(e.target.value);

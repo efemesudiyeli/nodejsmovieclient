@@ -21,7 +21,7 @@ export default function ListMovies() {
   });
 
   return (
-    <div className="grid grid-cols-3 grid-flow-row gap-4">
+    <div className="grid grid-cols-3 grid-flow-row gap-4 place-items-center">
       {movieList.map((movieItem) => (
         <div className="border w-80 h-96 relative" key={movieItem._id}>
           <div className="z-50 absolute bottom-20 left-1/2 -translate-x-1/2  p-5 bg-black">
