@@ -22,7 +22,7 @@ export default function MinimizeListMovies() {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  });
 
   const deleteMovie = (_id) => {
     const data = {

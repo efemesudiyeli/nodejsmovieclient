@@ -18,7 +18,7 @@ export default function ListMovies() {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  });
 
   return (
     <div className="grid grid-cols-3 grid-flow-row gap-4">
