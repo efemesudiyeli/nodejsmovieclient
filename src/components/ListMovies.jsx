@@ -30,7 +30,11 @@ export default function ListMovies() {
           </div>
           <img
             className="object-cover absolute bottom-0 w-full h-full -z-10"
-            src={movieItem.image.length > 2 ? movieItem.image : noImagePNG}
+            src={
+              movieItem.image !== null && movieItem.image.length > 2
+                ? movieItem.image
+                : noImagePNG
+            }
             alt="movie-banner"
           />
         </div>
