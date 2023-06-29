@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -6,47 +8,55 @@ import { AiFillDelete } from "react-icons/ai";
 import { GrUpdate } from "react-icons/gr";
 import UpdateMenu from "./UpdateMenu";
 
-export default function MinimizeListMovies() {
-  const [movieList, setMovieList] = useState([]);
+export default function MinimizeListMovies({ getAllMovies, movieList }) {
+  // const [movieList, setMovieList] = useState([]);
   const [updateMenuStatus, setUpdateMenuStatus] = useState("hidden");
   const [showingItemID, setShowingItemID] = useState(null);
 
   const [placeholderName, setPlaceholderName] = useState("");
   const [placeholderDirector, setPlaceholderDirector] = useState("");
   const [placeholderImage, setPlaceholderImage] = useState("");
+
   useEffect(() => {
-    try {
-      axios
-        .get("https://nodejsmovieserver-production.up.railway.app/allmovies")
-        .then((res) => {
-          console.log(res.data);
-          setMovieList(res.data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    getAllMovies();
   }, []);
 
-  const deleteMovie = (_id) => {
+  // function getAllMovies() {
+  //   try {
+  //     axios
+  //       .get("https://nodejsmovieserver-production.up.railway.app/allmovies")
+  //       .then((res) => {
+  //         setMovieList(res.data);
+  //         console.log("Get All Movies", res.data);
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  function deleteMovie(_id) {
     const data = {
       id: _id,
     };
-    try {
-      axios
-        .post(
-          "https://nodejsmovieserver-production.up.railway.app/deletemovie",
-          data
-        )
-        .then(() => {
-          console.log(`Request posted for delete this id: ${data}`);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const updateMenuShow = (_id) => {
-    updateMenuStatus == "hidden"
+    axios
+      .post(
+        "https://nodejsmovieserver-production.up.railway.app/deletemovie",
+        data
+      )
+      .then(() => {
+        getAllMovies();
+      })
+      .catch((error) => {
+        console.error("POST isteği sırasında bir hata oluştu:", error);
+        if (error.response) {
+          console.log("Hata", error.response.data);
+        }
+      });
+  }
+
+  function updateMenuShow(_id) {
+    updateMenuStatus === "hidden"
       ? setUpdateMenuStatus("visible")
       : setUpdateMenuStatus("hidden");
 
@@ -60,10 +70,14 @@ export default function MinimizeListMovies() {
         setPlaceholderDirector(res.data[0].director);
         setPlaceholderImage(res.data[0].image);
         console.log(placeholderName, placeholderDirector, placeholderImage);
+        getAllMovies();
+      })
+      .catch((error) => {
+        console.log("Update Menu Show Error", error);
       });
 
     setShowingItemID(_id);
-  };
+  }
 
   return (
     <div>
@@ -74,6 +88,7 @@ export default function MinimizeListMovies() {
           placeholderName={placeholderName}
           placeholderDirector={placeholderDirector}
           placeholderImage={placeholderImage}
+          getAllMovies={getAllMovies}
         />
       </div>
 
@@ -105,7 +120,11 @@ export default function MinimizeListMovies() {
                 <button>
                   {<GrUpdate onClick={() => updateMenuShow(movieItem._id)} />}
                 </button>
-                <button onClick={() => deleteMovie(movieItem._id)}>
+                <button
+                  onClick={() => {
+                    deleteMovie(movieItem._id);
+                  }}
+                >
                   <AiFillDelete />
                 </button>
               </td>

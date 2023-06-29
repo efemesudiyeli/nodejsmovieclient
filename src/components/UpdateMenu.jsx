@@ -9,6 +9,7 @@ export default function UpdateMenu({
   placeholderName,
   placeholderDirector,
   placeholderImage,
+  getAllMovies,
 }) {
   const [movieName, setMovieName] = useState();
   const [directorName, setDirectorName] = useState();
@@ -35,7 +36,10 @@ export default function UpdateMenu({
           data
         )
         .then(() => {
-          console.log(`Request posted for update this id: ${data} `);
+          console.log(
+            `Request posted for update this id: ${JSON.stringify(data.id)} `
+          );
+          getAllMovies();
         });
     } catch (error) {
       console.log(error);

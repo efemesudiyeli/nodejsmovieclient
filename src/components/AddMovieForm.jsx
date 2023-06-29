@@ -1,12 +1,13 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import axios from "axios";
 
-export default function AddMovieForm() {
+export default function AddMovieForm({ getAllMovies }) {
   const [movieName, setMovieName] = useState(null);
   const [directorName, setDirectorName] = useState(null);
   const [imageLink, setImageLink] = useState(null);
   // Post Movie after submit
-  const submitFunc = () => {
+  const addMovie = () => {
     const data = {
       name: movieName,
       director: directorName,
@@ -19,7 +20,8 @@ export default function AddMovieForm() {
         data
       )
       .then(() => {
-        console.log("Posted");
+        getAllMovies();
+        console.log("Added");
       });
   };
   return (
@@ -64,7 +66,7 @@ export default function AddMovieForm() {
         }}
       />
 
-      <button className="w-full" type="button" onClick={() => submitFunc()}>
+      <button className="w-full" type="button" onClick={() => addMovie()}>
         ONAYLA
       </button>
     </form>
