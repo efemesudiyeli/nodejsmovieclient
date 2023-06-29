@@ -51,7 +51,7 @@ export default function MinimizeListMovies() {
       : setUpdateMenuStatus("hidden");
 
     axios
-      .post("http://localhost:3000/findonebyid", {
+      .post("https://nodejsmovieserver-production.up.railway.app/findonebyid", {
         _id: _id,
       })
       .then((res) => {
