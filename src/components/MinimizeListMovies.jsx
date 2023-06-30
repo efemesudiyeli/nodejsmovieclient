@@ -21,19 +21,6 @@ export default function MinimizeListMovies({ getAllMovies, movieList }) {
     getAllMovies();
   }, []);
 
-  // function getAllMovies() {
-  //   try {
-  //     axios
-  //       .get("https://nodejsmovieserver-production.up.railway.app/allmovies")
-  //       .then((res) => {
-  //         setMovieList(res.data);
-  //         console.log("Get All Movies", res.data);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   function deleteMovie(_id) {
     const data = {
       id: _id,

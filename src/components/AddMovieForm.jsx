@@ -6,7 +6,17 @@ export default function AddMovieForm({ getAllMovies }) {
   const [movieName, setMovieName] = useState(null);
   const [directorName, setDirectorName] = useState(null);
   const [imageLink, setImageLink] = useState(null);
+
+  const [addedAlertStatus, setAddedAlertStatus] = useState("hidden");
   // Post Movie after submit
+
+  function sendAddedAlert() {
+    setAddedAlertStatus("visible");
+    setTimeout(() => {
+      setAddedAlertStatus("hidden");
+    }, 3000);
+  }
+
   const addMovie = () => {
     const data = {
       name: movieName,
@@ -22,6 +32,7 @@ export default function AddMovieForm({ getAllMovies }) {
       .then(() => {
         getAllMovies();
         console.log("Added");
+        sendAddedAlert();
       });
   };
   return (
@@ -66,9 +77,19 @@ export default function AddMovieForm({ getAllMovies }) {
         }}
       />
 
-      <button className="w-full" type="button" onClick={() => addMovie()}>
+      <button
+        className="w-full border mt-3 p-2 transition-all hover:scale-105 duration-200"
+        type="button"
+        onClick={() => addMovie()}
+      >
         ONAYLA
       </button>
+
+      <div
+        className={`w-full border mt-3 p-2 bg-green-500 font-bold transition-all ${addedAlertStatus}`}
+      >
+        Added Successfully
+      </div>
     </form>
   );
 }
