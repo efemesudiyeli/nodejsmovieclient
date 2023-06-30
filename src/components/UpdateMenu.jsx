@@ -48,7 +48,13 @@ export default function UpdateMenu({
 
   return (
     <div>
-      <div className="w-96 p-5 border absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 backdrop-blur-md">
+      <div className="w-96 p-5 border absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 backdrop-blur-md ">
+        <button
+          className="absolute right-0 top-0 w-1/12"
+          onClick={() => setUpdateMenuStatus("hidden")}
+        >
+          X
+        </button>
         <form className="flex flex-col items-center justify-center h-full ">
           <label>{showingItemID}</label>
           <label
