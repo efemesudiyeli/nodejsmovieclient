@@ -4,10 +4,9 @@ import Navbar from "../components/Navbar";
 
 import Helmet from "react-helmet";
 import duckPng from "../assets/images/duck.png";
-import axios from "axios";
+
 import { useState } from "react";
-export default function Admin() {
-  const [movieList, setMovieList] = useState([]);
+export default function Admin({ getAllMovies, movieList }) {
   const [easterEggHiddenOrVisible, setEasterEggHiddenOrVisible] =
     useState("hidden");
 
@@ -22,17 +21,6 @@ export default function Admin() {
     }
   }
 
-  function getAllMovies() {
-    try {
-      axios
-        .get("https://nodejsmovieserver-production.up.railway.app/allmovies")
-        .then((res) => {
-          setMovieList(res.data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }
   return (
     <>
       <Helmet>
