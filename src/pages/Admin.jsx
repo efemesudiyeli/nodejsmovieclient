@@ -3,11 +3,25 @@ import MinimizeListMovies from "../components/MinimizeListMovies";
 import Navbar from "../components/Navbar";
 
 import Helmet from "react-helmet";
-
+import duckPng from "../assets/images/duck.png";
 import axios from "axios";
 import { useState } from "react";
 export default function Admin() {
   const [movieList, setMovieList] = useState([]);
+  const [easterEggHiddenOrVisible, setEasterEggHiddenOrVisible] =
+    useState("hidden");
+
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      console.log("hit enter");
+      if (easterEggHiddenOrVisible === "hidden") {
+        setEasterEggHiddenOrVisible("visible");
+      } else {
+        setEasterEggHiddenOrVisible("hidden");
+      }
+    }
+  }
+
   function getAllMovies() {
     try {
       axios
@@ -27,7 +41,10 @@ export default function Admin() {
       </Helmet>
 
       <Navbar />
-      <div className="flex justify-center flex-col items-center h-full">
+      <div
+        onKeyDown={handleKeyDown}
+        className="flex justify-center flex-col items-center h-full max-lg:mt-44"
+      >
         <div>
           <div className="mb-20">
             <MinimizeListMovies
@@ -40,6 +57,11 @@ export default function Admin() {
           </div>
         </div>
       </div>
+
+      <img
+        src={duckPng}
+        className={`animate-spin absolute w-24 right-32 top-32 ${easterEggHiddenOrVisible}`}
+      />
     </>
   );
 }

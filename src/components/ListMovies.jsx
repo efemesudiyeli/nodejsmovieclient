@@ -20,7 +20,7 @@ export default function ListMovies() {
   }, []);
 
   return (
-    <div className="flex basis-1/6 flex-row flex-wrap justify-center items-center gap-16  transition  animate-fadein ">
+    <div className="flex basis-1/6 flex-row flex-wrap justify-center items-center gap-16  transition  animate-fadein max-lg:pb-20">
       {movieList.length > 0 ? (
         movieList.map((movieItem) => (
           <div className="border w-80 h-96 relative" key={movieItem._id}>

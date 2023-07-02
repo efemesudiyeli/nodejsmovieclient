@@ -3,6 +3,9 @@ import Helmet from "react-helmet";
 import Navbar from "../components/Navbar";
 
 import Hero1 from "../components/Hero1";
+
+
+
 export default function Home() {
   return (
     <div>
@@ -13,6 +16,8 @@ export default function Home() {
       <Navbar />
       <Hero1 />
       <ListMovies />
+
+      
     </div>
   );
 }
