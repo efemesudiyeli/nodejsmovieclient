@@ -7,7 +7,7 @@ export default function RandomMovieConfirm({
   getRandomMovieNumber,
 }) {
   const [randomMovie, setRandomMovie] = useState({
-    id: "",
+    _id: "",
     name: "",
     director: "",
     image: "",
@@ -47,6 +47,15 @@ export default function RandomMovieConfirm({
       )
       .then(() => {
         console.log("added", data);
+
+        axios
+          .post(
+            "https://nodejsmovieserver-production.up.railway.app/detelemovie",
+            { _id: _id }
+          )
+          .then(() => {
+            console.log("deleted", _id);
+          });
       });
   }
 
