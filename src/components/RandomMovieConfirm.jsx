@@ -50,8 +50,8 @@ export default function RandomMovieConfirm({
 
         axios
           .post(
-            "https://nodejsmovieserver-production.up.railway.app/detelemovie",
-            { _id: _id }
+            "https://nodejsmovieserver-production.up.railway.app/deletemovie",
+            { id: _id }
           )
           .then(() => {
             console.log("deleted", _id);

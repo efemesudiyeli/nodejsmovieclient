@@ -29,7 +29,7 @@ export default function MinimizeListMovies({ getAllMovies, movieList }) {
     axios
       .post(
         "https://nodejsmovieserver-production.up.railway.app/deletemovie",
-        data
+        data, 
       )
       .then(() => {
         getAllMovies();
