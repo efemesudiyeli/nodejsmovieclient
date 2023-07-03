@@ -9,7 +9,7 @@ export default function RandomMovieDraw({ getAllMovies, movieList }) {
     console.log("length" + movieList.length);
   }, []);
 
-  function getRandomMovie() {
+  function getRandomMovieNumber() {
     const randomInt = Math.floor(Math.random() * movieList.length);
     return randomInt;
   }
@@ -51,19 +51,19 @@ export default function RandomMovieDraw({ getAllMovies, movieList }) {
             <div className="">
               <img
                 className="h-full w-full object-cover"
-                src={movieList[getRandomMovie()].image}
+                src={movieList[getRandomMovieNumber()].image}
               />
             </div>
             <div>
               <img
                 className="h-full w-full object-cover"
-                src={movieList[getRandomMovie()].image}
+                src={movieList[getRandomMovieNumber()].image}
               />
             </div>
             <div>
               <img
                 className="h-full w-full object-cover"
-                src={movieList[getRandomMovie()].image}
+                src={movieList[getRandomMovieNumber()].image}
               />
             </div>
           </div>
@@ -82,7 +82,11 @@ export default function RandomMovieDraw({ getAllMovies, movieList }) {
       )}
 
       {movieSelectState === true ? (
-        <RandomMovieConfirm getAllMovies={getAllMovies} movieList={movieList} />
+        <RandomMovieConfirm
+          getAllMovies={getAllMovies}
+          movieList={movieList}
+          getRandomMovieNumber={getRandomMovieNumber}
+        />
       ) : (
         <></>
       )}

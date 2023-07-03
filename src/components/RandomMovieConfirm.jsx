@@ -1,6 +1,55 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function RandomMovieConfirm({ getAllMovies, movieList }) {
+export default function RandomMovieConfirm({
+  getAllMovies,
+  movieList,
+  getRandomMovieNumber,
+}) {
+  const [randomMovie, setRandomMovie] = useState({
+    id: "",
+    name: "",
+    director: "",
+    image: "",
+  });
+
+  useEffect(() => {
+    showRandomMovie();
+  }, []);
+
+  function showRandomMovie() {
+    const randomInt = getRandomMovieNumber();
+
+    setRandomMovie({
+      _id: movieList[randomInt]._id,
+      name: movieList[randomInt].name,
+      director: movieList[randomInt].director,
+      image: movieList[randomInt].image,
+    });
+  }
+
+  function addMovieToWatchedList(_id) {
+    const data = {
+      name: randomMovie.name.replace(
+        randomMovie.name[0],
+        randomMovie.name[0].toUpperCase()
+      ),
+      director: randomMovie.director.replace(
+        randomMovie.director[0],
+        randomMovie.director[0].toUpperCase()
+      ),
+      image: randomMovie.image,
+    };
+    axios
+      .post(
+        "https://nodejsmovieserver-production.up.railway.app/addmovietowatchedlist",
+        data
+      )
+      .then(() => {
+        console.log("added", data);
+      });
+  }
+
   return (
     <div className="flex flex-col w-[34rem]  justify-center items-center absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2  text-white">
       {/* Loading */}
@@ -31,15 +80,28 @@ export default function RandomMovieConfirm({ getAllMovies, movieList }) {
       {movieList.length > 0 ? (
         <div className="bg-purple-900 w-full ">
           <div>
-            <img src={movieList[5].image} alt="" />
+            <img src={randomMovie.image} alt="" />
           </div>
           <div>
-            <div>{movieList[5].name}</div>
-            <div>{movieList[5].director}</div>
+            <div>{randomMovie.name}</div>
+            <div>{randomMovie.director}</div>
           </div>
           <div className="flex justify-evenly gap-1">
-            <button className="w-full p-5 bg-purple-600">Tekrar Seç</button>
-            <button className="w-full p-5 bg-purple-600">İzleyeceğim</button>
+            <button
+              className="w-full p-5 bg-purple-600"
+              onClick={() => showRandomMovie()}
+            >
+              Tekrar Seç
+            </button>
+            <button
+              className="w-full p-5 bg-purple-600"
+              onClick={() => {
+                addMovieToWatchedList(randomMovie._id);
+                showRandomMovie();
+              }}
+            >
+              İzleyeceğim
+            </button>
           </div>
         </div>
       ) : (
