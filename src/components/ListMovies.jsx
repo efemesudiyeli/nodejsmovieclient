@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import { motion } from "framer-motion";
 export default function ListMovies() {
   const [movieList, setMovieList] = useState([]);
   const noImagePNG =
@@ -19,11 +19,40 @@ export default function ListMovies() {
     }
   }, []);
 
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { y: 90, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
+
   return (
-    <div className="flex basis-1/6 flex-row flex-wrap justify-center items-center gap-16  transition  animate-fadein max-lg:pb-20">
+    <motion.ul
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className="flex basis-1/6 flex-row flex-wrap justify-center items-center gap-16 max-lg:pb-20"
+    >
       {movieList.length > 0 ? (
         movieList.map((movieItem) => (
-          <div className="border w-80 h-96 relative" key={movieItem._id}>
+          <motion.li
+            variants={item}
+            className="border w-80 h-96 relative"
+            key={movieItem._id}
+          >
             <div className="z-50 absolute bottom-20 left-1/2 -translate-x-1/2  w-full py-5 backdrop-blur-3xl border-y-2">
               <h2 className="font-extrabold">{movieItem.name}</h2>
               <h3 className="font-light">{movieItem.director}</h3>
@@ -37,7 +66,7 @@ export default function ListMovies() {
               }
               alt="movie-banner"
             />
-          </div>
+          </motion.li>
         ))
       ) : (
         <div role="status">
@@ -60,6 +89,6 @@ export default function ListMovies() {
           <span className="sr-only">Loading...</span>
         </div>
       )}
-    </div>
+    </motion.ul>
   );
 }

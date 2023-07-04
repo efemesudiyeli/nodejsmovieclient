@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 export default function AddMovieForm({ getAllMovies }) {
   const [movieName, setMovieName] = useState("");
@@ -67,7 +68,12 @@ export default function AddMovieForm({ getAllMovies }) {
   }
 
   return (
-    <form className="flex flex-col items-center justify-center transition-all animate-fadein ">
+    <motion.form
+      initial={{ opacity: 0, translateY: 900 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ type: "spring", stiffness: 35 }}
+      className="flex flex-col items-center justify-center w-full "
+    >
       <label htmlFor="_moviename" className="my-2 font-bold w-full ">
         Film
       </label>
@@ -125,6 +131,6 @@ export default function AddMovieForm({ getAllMovies }) {
       >
         Added Successfully
       </div>
-    </form>
+    </motion.form>
   );
 }
