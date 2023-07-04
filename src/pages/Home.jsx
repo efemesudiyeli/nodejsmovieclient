@@ -5,7 +5,6 @@ import Navbar from "../components/Navbar";
 import Hero1 from "../components/Hero1";
 
 export default function Home() {
- 
   return (
     <div>
       <Helmet>
@@ -13,6 +12,7 @@ export default function Home() {
         <title>MovieAPP | Homepage</title>
       </Helmet>
       <Navbar />
+
       <Hero1 />
       <ListMovies />
     </div>
