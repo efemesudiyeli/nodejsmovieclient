@@ -180,7 +180,6 @@ export default function MinimizeListMovies({ getAllMovies, movieList }) {
           </tbody>
         </motion.table>
       </div>
-      )
     </div>
   );
 }

@@ -13,6 +13,16 @@
   }
 }
 
+html {
+  /* To make use of full height of page*/
+  min-height: 100%;
+  margin: 0;
+}
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
 :root {
   /* font-family: "Raleway", sans-serif; */
   /* font-family: "Roboto Mono", monospace; */

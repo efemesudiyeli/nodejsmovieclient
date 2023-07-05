@@ -69,7 +69,7 @@ export default function AddMovieForm({ getAllMovies }) {
 
   return (
     <motion.form
-      initial={{ opacity: 0, translateY: 900 }}
+      initial={{ opacity: 0, translateY: -900 }}
       animate={{ opacity: 1, translateY: 0 }}
       transition={{ type: "spring", stiffness: 35 }}
       className="flex flex-col items-center justify-center w-full "
