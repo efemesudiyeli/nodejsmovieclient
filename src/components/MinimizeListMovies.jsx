@@ -132,7 +132,11 @@ export default function MinimizeListMovies({ getAllMovies, movieList }) {
 
           <tbody className="bg-white/20 backdrop-blur-2xl text-black text-left lg:text-2xl text-sm">
             {movieList.map((movieItem) => (
-              <motion.tr variants={item} className="" key={movieItem._id}>
+              <motion.tr
+                variants={item}
+                className="odd:bg-purple-400/20"
+                key={movieItem._id}
+              >
                 {window.screen.width < 1024 ? (
                   <></>
                 ) : (

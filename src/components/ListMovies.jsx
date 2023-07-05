@@ -48,7 +48,7 @@ export default function ListMovies() {
         <motion.li
           id={movieItem._id}
           variants={item}
-          className="border w-80 h-96 relative"
+          className="border w-80 h-96 relative bg-black"
           key={movieItem._id}
         >
           <div className="z-50 absolute bottom-20 left-1/2 -translate-x-1/2  w-full py-5 backdrop-blur-3xl border-y-2">
@@ -56,7 +56,7 @@ export default function ListMovies() {
             <h3 className="font-light">{movieItem.director}</h3>
           </div>
           <img
-            className="object-cover absolute bottom-0 w-full h-full"
+            className="object-contain absolute bottom-0 w-full h-full"
             src={
               movieItem.image !== null && movieItem.image.length > 2
                 ? movieItem.image
