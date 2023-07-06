@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import Random from "./pages/Random";
 
+import WatchedMovies from "./pages/WatchedMovies";
+
 function App() {
   const [movieList, setMovieList] = useState([]);
   function getAllMovies() {
@@ -35,6 +37,7 @@ function App() {
           path="/random"
           element={<Random getAllMovies={getAllMovies} movieList={movieList} />}
         />
+        <Route path="/watched" element={<WatchedMovies />} />
       </Routes>
     </>
   );
