@@ -1,18 +1,38 @@
 import { useState, useEffect } from "react";
 import RandomMovieConfirm from "./RandomMovieConfirm";
+import { motion } from "framer-motion";
 
 export default function RandomMovieDraw({ getAllMovies, movieList }) {
   const [movieSelectState, setMovieSelectState] = useState(false);
 
   useEffect(() => {
     getAllMovies();
-    console.log("length" + movieList.length);
   }, []);
 
   function getRandomMovieNumber() {
     const randomInt = Math.floor(Math.random() * movieList.length);
     return randomInt;
   }
+
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
 
   return (
     <div className="flex flex-col justify-center items-center absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2  text-white">
@@ -42,40 +62,75 @@ export default function RandomMovieDraw({ getAllMovies, movieList }) {
 
       {movieList.length > 0 && !movieSelectState ? (
         <div className="bg-purple-900">
-          <div className="p-20">
-            <span>
-              Henüz izlemediğiniz {movieList.length} adet film bulunuyor
+          <motion.div
+            initial={{ y: -90, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+            }}
+            className="p-20"
+          >
+            <span className="text-2xl ">
+              Henüz izlemediğiniz{" "}
+              <span className="text-yellow-400"> {movieList.length} </span> adet
+              film bulunuyor
             </span>
-          </div>
-          <div className="grid grid-cols-3 px-20 ">
-            <div className="">
+          </motion.div>
+          <motion.ul
+            initial="hidden"
+            animate="visible"
+            variants={container}
+            className="grid grid-cols-3 px-20 "
+          >
+            <motion.li variants={item}>
               <img
                 className="h-full w-full object-cover"
-                src={movieList[getRandomMovieNumber()].image}
+                src={movieList[0].image}
+                alt={"a"}
               />
-            </div>
-            <div>
+            </motion.li>
+            <motion.li variants={item}>
               <img
                 className="h-full w-full object-cover"
-                src={movieList[getRandomMovieNumber()].image}
+                src={movieList[1].image}
+                alt={"a"}
               />
-            </div>
-            <div>
+            </motion.li>
+            <motion.li variants={item}>
               <img
                 className="h-full w-full object-cover"
-                src={movieList[getRandomMovieNumber()].image}
+                src={movieList[2].image}
+                alt={"a"}
               />
-            </div>
-          </div>
-          <div>
-            <button
+            </motion.li>
+          </motion.ul>
+          <motion.div
+            initial={{ y: 90, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+            }}
+          >
+            <motion.button
               type="button"
-              className="p-20"
+              className="p-5 my-20 text-2xl bg-purple-500"
               onClick={() => setMovieSelectState(true)}
+              whileHover={{
+                scale: 1.5,
+                transition: {
+                  type: "spring",
+                  stiffness: 560,
+                  damping: 20,
+                },
+              }}
             >
               Rastgele bir film seç
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
       ) : (
         <></>

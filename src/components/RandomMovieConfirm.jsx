@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 export default function RandomMovieConfirm({
   getAllMovies,
@@ -60,7 +61,7 @@ export default function RandomMovieConfirm({
   }
 
   return (
-    <div className="flex flex-col w-[34rem]  justify-center items-center absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2  text-white">
+    <div className="flex flex-col min-w-[34rem] h-[68rem]  justify-center items-center absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2  text-white">
       {/* Loading */}
       {movieList.length > 0 ? (
         <></>
@@ -87,10 +88,31 @@ export default function RandomMovieConfirm({
       )}
       {/* Random Movie */}
       {movieList.length > 0 ? (
-        <div className="bg-purple-900 w-full ">
-          <div>
-            <img src={randomMovie.image} alt="" />
-          </div>
+        <motion.div
+          initial={{ y: -90, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+          }}
+          className="bg-purple-900 w-full h-full flex flex-col justify-between"
+        >
+          <motion.div
+            key={randomMovie.image}
+            initial={{ y: -90, opacity: 0 }}
+            animate={{
+              y: 0,
+              opacity: 1,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              damping: 10,
+            }}
+          >
+            <img className="object-contain" src={randomMovie.image} alt="" />
+          </motion.div>
           <div>
             <div>{randomMovie.name}</div>
             <div>{randomMovie.director}</div>
@@ -112,7 +134,7 @@ export default function RandomMovieConfirm({
               İzleyeceğim
             </button>
           </div>
-        </div>
+        </motion.div>
       ) : (
         <></>
       )}
